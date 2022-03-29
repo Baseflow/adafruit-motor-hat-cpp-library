@@ -81,7 +81,7 @@ int AdafruitStepperMotor::oneStep(Direction direction, Style style) {
             std::copy(step2coils[7]->begin(), step2coils[7]->end(), coils);
         }
     } else {
-        std::size_t index = currentStep / kMicrosteps / 2;
+        std::size_t index = currentStep / (kMicrosteps / 2);
         std::copy(step2coils[index]->begin(),step2coils[index]->end(), coils);
     }
 
@@ -94,7 +94,7 @@ int AdafruitStepperMotor::oneStep(Direction direction, Style style) {
 }
 
 void AdafruitStepperMotor::singleStep(Direction direction) {
-    int stepSize = ((currentStep / kMicrosteps / 2) % 2) == 0
+    int stepSize = ((currentStep / (kMicrosteps / 2)) % 2) == 0
             ? kMicrosteps / 2
             : kMicrosteps;
 
@@ -106,7 +106,7 @@ void AdafruitStepperMotor::singleStep(Direction direction) {
 }
 
 void AdafruitStepperMotor::doubleStep(Direction direction) {
-    int stepSize = ((currentStep / kMicrosteps / 2) % 2) != 0
+    int stepSize = ((currentStep / (kMicrosteps / 2)) % 2) != 0
                    ? kMicrosteps / 2
                    : kMicrosteps;
 
@@ -121,7 +121,7 @@ void AdafruitStepperMotor::interleaveStep(Direction direction) {
     if (direction == Direction::kForward) {
         currentStep += kMicrosteps / 2;
     } else {
-        currentStep -= kMicrosteps /2;
+        currentStep -= kMicrosteps / 2;
     }
 }
 
