@@ -26,7 +26,6 @@
 
 #pragma once
 
-#include "adafruitmotorhat.h"
 #include "pwm.h"
 
 class AdafruitDCMotor
