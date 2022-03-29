@@ -33,3 +33,12 @@
 
 # VS Code
 .vscode/
+
+# CMake / MAke
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Binaries
+libAdafruitMotor.so

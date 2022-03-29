@@ -1,7 +1,0 @@
-/home/maurits/Projects/Baseflow/Internal/DID/adafruit-motor-hat-cpp-library/CMakeFiles/install/strip.dir
-/home/maurits/Projects/Baseflow/Internal/DID/adafruit-motor-hat-cpp-library/CMakeFiles/install/local.dir
-/home/maurits/Projects/Baseflow/Internal/DID/adafruit-motor-hat-cpp-library/CMakeFiles/install.dir
-/home/maurits/Projects/Baseflow/Internal/DID/adafruit-motor-hat-cpp-library/CMakeFiles/list_install_components.dir
-/home/maurits/Projects/Baseflow/Internal/DID/adafruit-motor-hat-cpp-library/CMakeFiles/rebuild_cache.dir
-/home/maurits/Projects/Baseflow/Internal/DID/adafruit-motor-hat-cpp-library/CMakeFiles/edit_cache.dir
-/home/maurits/Projects/Baseflow/Internal/DID/adafruit-motor-hat-cpp-library/CMakeFiles/AdafruitMotor.dir
