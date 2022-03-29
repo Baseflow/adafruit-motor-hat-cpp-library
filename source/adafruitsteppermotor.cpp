@@ -55,8 +55,13 @@ int AdafruitStepperMotor::oneStep(Direction direction, Style style) {
 
     nextStepAndWrap();
 
-    controller.setChannel(pwmPinA, 0, pwm_a * 16);
-    controller.setChannel(pwmPinB, 0, pwm_b * 16);
+    if (style == Style::kMicrostep) {
+        controller.setChannel(pwmPinA, 0, pwm_a * 16);
+        controller.setChannel(pwmPinB, 0, pwm_b * 16);
+    } else {
+        controller.setChannel(pwmPinA, 0, pwm_a);
+        controller.setChannel(pwmPinB, 0, pwm_b);
+    }
 
     std::array<bool, 4> coils[4] = { false, false, false, false };
     std::array<std::array<bool, 4>, 8> step2coils[8][4] = {
@@ -89,6 +94,12 @@ int AdafruitStepperMotor::oneStep(Direction direction, Style style) {
     util::setPin(controller, in1PinB, coils->at(1));
     util::setPin(controller, in1PinA, coils->at(2));
     util::setPin(controller, in2PinB, coils->at(3));
+
+    std::cout << "Step: " << currentStep << std::endl;
+    std::cout << "  - Second Pin A: " << coils->at(0) << std::endl;
+    std::cout << "  - First Pin B: " << coils->at(1) << std::endl;
+    std::cout << "  - First Pin A: " << coils->at(2) << std::endl;
+    std::cout << "  - Second Pin B: " << coils->at(3) << std::endl;
 
     return currentStep;
 }
