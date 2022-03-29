@@ -66,20 +66,20 @@ void AdafruitDCMotor::run (Command command)
     switch (command)
     {
         case kForward:
-            setPin (in1Pin, true);
-            setPin (in2Pin, false);
+            util::setPin (controller, in1Pin, true);
+            util::setPin (controller, in2Pin, false);
             break;
         case kBackward:
-            setPin (in1Pin, false);
-            setPin (in2Pin, true);
+            util::setPin (controller, in1Pin, false);
+            util::setPin (controller, in2Pin, true);
             break;
         case kBrake:
-            setPin (in1Pin, true);
-            setPin (in2Pin, true);
+            util::setPin (controller, in1Pin, true);
+            util::setPin (controller, in2Pin, true);
             break;
         case kRelease:
-            setPin (in1Pin, false);
-            setPin (in2Pin, false);
+            util::setPin (controller, in1Pin, false);
+            util::setPin (controller, in2Pin, false);
             break;
         default:
             break;
@@ -90,15 +90,4 @@ void AdafruitDCMotor::setSpeed (int speed)
 {
     speed = std::max (0, std::min (speed, 255));
     controller.setChannel (pwmPin, 0, speed * 16);
-}
-
-void AdafruitDCMotor::setPin (int pin, bool enabled)
-{
-    if (pin < 0 || pin > 15)
-    {
-        log::error ("Failed to set PWM pin " + std::to_string (pin) + ". Must be between 0 and 15 inclusive.");
-        return;
-    }
-
-    controller.setChannel (pin, enabled ? 4096 : 0, enabled ? 0 : 4096);
 }

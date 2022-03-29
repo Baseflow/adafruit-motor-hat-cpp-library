@@ -26,6 +26,7 @@
 
 #pragma once
 
+#include "adafruitmotorhat.h"
 #include "pwm.h"
 
 class AdafruitDCMotor
@@ -39,7 +40,7 @@ public:
         kRelease = 4,
     };
 
-    AdafruitDCMotor (PWM& pwm, int index);
+    AdafruitDCMotor (PWM& controller, int index);
 
     /** Makes the motor perform an action.
      *  @see Commands
@@ -52,8 +53,7 @@ public:
     void setSpeed (int speed);
 
 private:
-    void setPin (int pin, bool enabled);
-
     PWM& controller;
+
     int pwmPin = 0, in1Pin = 0, in2Pin = 0;
 };

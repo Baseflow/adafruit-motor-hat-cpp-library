@@ -24,13 +24,15 @@
  *  SOFTWARE.
  */
 
-#pragma once
-
-#include "pwm.h"
-#include "adafruitdcmotor.h"
+#ifndef ADAFRUITMOTOR_ADAFRUITMOTORHAT_H
+#define ADAFRUITMOTOR_ADAFRUITMOTORHAT_H
 
 #include <memory>
 #include <vector>
+
+#include "pwm.h"
+#include "adafruitdcmotor.h"
+#include "adafruitsteppermotor.h"
 
 class AdafruitMotorHAT
 {
@@ -42,10 +44,21 @@ public:
      *  If the number is out-of-range, the shared pointer
      *  returned from the method will be empty.
      */
-    std::shared_ptr<AdafruitDCMotor> getMotor (unsigned int number);
+    //std::shared_ptr<AdafruitDCMotor> getDCMotor (unsigned int number);
 
+    /** Get one of the Stepper motors controlled by the HAT.
+     * Expects a value between 1 and 2 inclusive.
+     * If the number is out-of-range, the shared pointer
+     * returned from the method will be empty.
+     */
+     std::shared_ptr<AdafruitStepperMotor> getStepperMotor(unsigned int number);
+
+    void setPin(int pin, bool enabled);
 private:
     PWM controller;
     const int frequency;
-    std::vector<std::shared_ptr<AdafruitDCMotor>> dcMotors;
+    //std::vector<std::shared_ptr<AdafruitDCMotor>> dcMotors;
+    std::vector<std::shared_ptr<AdafruitStepperMotor>> stepperMotors;
 };
+
+#endif // ADAFRUITMOTOR_ADAFRUITMOTORHAT_H

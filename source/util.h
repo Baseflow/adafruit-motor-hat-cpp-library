@@ -26,6 +26,8 @@
 
 #pragma once
 
+#include "pwm.h"
+
 #include <cerrno>
 #include <cstring>
 #include <string>
@@ -153,5 +155,15 @@ namespace util
 
         log::error ("Unrecognised Raspberry Pi device.");
         return -1;
+    }
+
+    inline void setPin(PWM& controller, int pin, bool enabled) {
+        if (pin < 0 || pin > 15)
+        {
+            log::error ("Failed to set PWM pin " + std::to_string (pin) + ". Must be between 0 and 15 inclusive.");
+            return;
+        }
+
+        controller.setChannel (pin, enabled ? 4096 : 0, enabled ? 0 : 4096);
     }
 }
