@@ -44,7 +44,7 @@ public:
      *  If the number is out-of-range, the shared pointer
      *  returned from the method will be empty.
      */
-    //std::shared_ptr<AdafruitDCMotor> getDCMotor (unsigned int number);
+    std::shared_ptr<AdafruitDCMotor> getDCMotor (unsigned int number);
 
     /** Get one of the Stepper motors controlled by the HAT.
      * Expects a value between 1 and 2 inclusive.
@@ -57,7 +57,7 @@ public:
 private:
     PWM controller;
     const int frequency;
-    //std::vector<std::shared_ptr<AdafruitDCMotor>> dcMotors;
+    std::vector<std::shared_ptr<AdafruitDCMotor>> dcMotors;
     std::vector<std::shared_ptr<AdafruitStepperMotor>> stepperMotors;
 };
 

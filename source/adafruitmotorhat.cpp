@@ -35,10 +35,10 @@ AdafruitMotorHAT::AdafruitMotorHAT (int address, int freq)
     controller.setFrequency (frequency);
 
     // add the dc motors
-    //for (int i = 0; i < 4; ++i)
-    //{
-    //    dcMotors.push_back (std::make_shared<AdafruitDCMotor> (controller, i));
-    //}
+    for (int i = 0; i < 4; ++i)
+    {
+        dcMotors.push_back (std::make_shared<AdafruitDCMotor> (controller, i));
+    }
 
     // add the stepper motors
     for (int i =0; i < 2; i++)
@@ -47,13 +47,13 @@ AdafruitMotorHAT::AdafruitMotorHAT (int address, int freq)
     }
 }
 
-//std::shared_ptr<AdafruitDCMotor> AdafruitMotorHAT::getDCMotor (unsigned int number) {
-//    if (number <= 0 && number > dcMotors.size()) {
-//        return {};
-//    }
-//
-//    return { dcMotors[number - 1] };
-//}
+std::shared_ptr<AdafruitDCMotor> AdafruitMotorHAT::getDCMotor (unsigned int number) {
+    if (number <= 0 && number > dcMotors.size()) {
+        return {};
+    }
+
+    return { dcMotors[number - 1] };
+}
 
 std::shared_ptr<AdafruitStepperMotor> AdafruitMotorHAT::getStepperMotor(unsigned int number) {
     if (number <= 0 && number > stepperMotors.size()) {
