@@ -15,10 +15,10 @@ SimpleStepper::SimpleStepper(PWM &pwm, int motor_index)
         motor_pin_3 = 11;
         motor_pin_4 = 12;
     } else if (motor_index == 1) {
-        motor_pin_1 = 4;
-        motor_pin_2 = 3;
-        motor_pin_3 = 5;
-        motor_pin_4 = 6;
+        motor_pin_1 = 4; // 4
+        motor_pin_2 = 3; // 6
+        motor_pin_3 = 5; // 3
+        motor_pin_4 = 6; // 5
     }
 }
 
@@ -35,6 +35,8 @@ void SimpleStepper::step(int steps_to_move)
     if (steps_to_move > 0) { direction = 1; }
     if (steps_to_move < 0) { direction = 0; }
 
+    controller.setChannel(2, 0, 255);
+    controller.setChannel(7, 0, 255);
 
     // decrement the number of steps, moving one step each time:
     while (steps_left > 0)

@@ -42,3 +42,4 @@ Makefile
 
 # Binaries
 libAdafruitMotor.so
+example/Stepper
