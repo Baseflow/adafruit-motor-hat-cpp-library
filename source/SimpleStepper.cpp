@@ -2,18 +2,19 @@
 // Created by maurits on 3/29/22.
 //
 
+#include <chrono>
 #include "SimpleStepper.h"
 #include "util.h"
 
-SimpleStepper::Stepper(PWM &pwm, int motor_index)
+SimpleStepper::SimpleStepper(PWM &pwm, int motor_index)
     : controller(pwm)
 {
-    if (motorIndex == 0) {
+    if (motor_index == 0) {
         motor_pin_1 = 10;
         motor_pin_2 = 9;
         motor_pin_3 = 11;
         motor_pin_4 = 12;
-    } else if (motorIndex == 1) {
+    } else if (motor_index == 1) {
         motor_pin_1 = 4;
         motor_pin_2 = 3;
         motor_pin_3 = 5;
@@ -21,59 +22,56 @@ SimpleStepper::Stepper(PWM &pwm, int motor_index)
     }
 }
 
-void Stepper::setSpeed(long whatSpeed)
+void SimpleStepper::setSpeed(long whatSpeed)
 {
-    this->step_delay = 60L * 1000L * 1000L / this->number_of_steps / whatSpeed;
+    step_delay = 60L * 1000L * 1000L / kNumberOfSteps / whatSpeed;
 }
 
-void Stepper::step(int steps_to_move)
+void SimpleStepper::step(int steps_to_move)
 {
     int steps_left = abs(steps_to_move);  // how many steps to take
 
     // determine direction based on whether steps_to_mode is + or -:
-    if (steps_to_move > 0) { this->direction = 1; }
-    if (steps_to_move < 0) { this->direction = 0; }
+    if (steps_to_move > 0) { direction = 1; }
+    if (steps_to_move < 0) { direction = 0; }
 
 
     // decrement the number of steps, moving one step each time:
     while (steps_left > 0)
     {
-        unsigned long now = micros();
+        unsigned long now = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
         // move only if the appropriate delay has passed:
-        if (now - this->last_step_time >= this->step_delay)
+        if (now - last_step_time >= step_delay)
         {
             // get the timeStamp of when you stepped:
-            this->last_step_time = now;
+            last_step_time = now;
             // increment or decrement the step number,
             // depending on direction:
-            if (this->direction == 1)
+            if (direction == 1)
             {
-                this->step_number++;
-                if (this->step_number == this->number_of_steps) {
-                    this->step_number = 0;
+                step_number++;
+                if (step_number == kNumberOfSteps) {
+                    step_number = 0;
                 }
             }
             else
             {
-                if (this->step_number == 0) {
-                    this->step_number = this->number_of_steps;
+                if (step_number == 0) {
+                    step_number = kNumberOfSteps;
                 }
-                this->step_number--;
+                step_number--;
             }
             // decrement the steps left:
             steps_left--;
             // step the motor to step number 0, 1, ..., {3 or 10}
-            if (this->pin_count == 5)
-                stepMotor(this->step_number % 10);
-            else
-                stepMotor(this->step_number % 4);
+            stepMotor(step_number % 4);
         }
     }
 }
 
-void Stepper::stepMotor(int thisStep)
+void SimpleStepper::stepMotor(int thisStep)
 {
-    if (this->pin_count == 4) {
+    if (kPinCount == 4) {
         switch (thisStep) {
             case 0:  // 1010
                 util::setPin(controller, motor_pin_1, true);
@@ -103,7 +101,7 @@ void Stepper::stepMotor(int thisStep)
     }
 }
 
-void release()
+void SimpleStepper::release()
 {
     util::setPin(controller, motor_pin_1, false);
     util::setPin(controller, motor_pin_2, false);

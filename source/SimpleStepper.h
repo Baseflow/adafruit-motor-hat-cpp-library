@@ -26,7 +26,7 @@ private:
     int motor_pin_3;
     int motor_pin_4;
 public:
-    Stepper(PWM& pwm, int motor_index);
+    SimpleStepper(PWM& pwm, int motor_index);
 
     void setSpeed(long whatSpeed);
 
