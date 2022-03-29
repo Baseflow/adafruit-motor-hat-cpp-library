@@ -90,17 +90,10 @@ int AdafruitStepperMotor::oneStep(Direction direction, Style style) {
         std::copy(step2coils[index]->begin(),step2coils[index]->end(), coils);
     }
 
-    if (style == Style::kMicrostep) {
-        util::setPin(controller, in2PinA, coils->at(0));
-        util::setPin(controller, in1PinB, coils->at(1));
-        util::setPin(controller, in1PinA, coils->at(2));
-        util::setPin(controller, in2PinB, coils->at(3));
-    } else {
-        util::setPin(controller, in1PinA, coils->at(0));
-        util::setPin(controller, in2PinA, coils->at(1));
-        util::setPin(controller, in1PinB, coils->at(2));
-        util::setPin(controller, in2PinB, coils->at(3));
-    }
+    util::setPin(controller, in2PinA, coils->at(0));
+    util::setPin(controller, in1PinB, coils->at(1));
+    util::setPin(controller, in1PinA, coils->at(2));
+    util::setPin(controller, in2PinB, coils->at(3));
 
     std::cout << "Step: " << currentStep << std::endl;
     std::cout << "  - Second Pin A: " << coils->at(0) << std::endl;

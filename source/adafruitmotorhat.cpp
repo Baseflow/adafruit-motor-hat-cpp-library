@@ -44,6 +44,7 @@ AdafruitMotorHAT::AdafruitMotorHAT (int address, int freq)
     for (int i =0; i < 2; i++)
     {
         stepperMotors.push_back (std::make_shared<AdafruitStepperMotor>(controller, i));
+        simpleSteppers.push_back(std::make_shared<SimpleStepper>(controller, i));
     }
 }
 
@@ -61,6 +62,14 @@ std::shared_ptr<AdafruitStepperMotor> AdafruitMotorHAT::getStepperMotor(unsigned
     }
 
     return stepperMotors[number - 1];
+}
+
+std::shared_ptr<SimpleStepper> AdafruitMotorHAT::getSimpleStepper(unsigned int number) {
+    if (number <= 0 && number > simpleSteppers.size()) {
+        return {};
+    }
+
+    return simpleSteppers[number - 1];
 }
 
 void AdafruitMotorHAT::setPin(int pin, bool enabled) {

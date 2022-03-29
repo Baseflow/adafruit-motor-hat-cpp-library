@@ -33,6 +33,7 @@
 #include "pwm.h"
 #include "adafruitdcmotor.h"
 #include "adafruitsteppermotor.h"
+#include "SimpleStepper.h"
 
 class AdafruitMotorHAT
 {
@@ -53,12 +54,15 @@ public:
      */
      std::shared_ptr<AdafruitStepperMotor> getStepperMotor(unsigned int number);
 
+     std::shared_ptr<SimpleStepper> getSimpleStepper(unsigned int number);
+
     void setPin(int pin, bool enabled);
 private:
     PWM controller;
     const int frequency;
     std::vector<std::shared_ptr<AdafruitDCMotor>> dcMotors;
     std::vector<std::shared_ptr<AdafruitStepperMotor>> stepperMotors;
+    std::vector<std::shared_ptr<SimpleStepper>> simpleSteppers;
 };
 
 #endif // ADAFRUITMOTOR_ADAFRUITMOTORHAT_H
