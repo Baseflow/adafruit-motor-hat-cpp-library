@@ -10,7 +10,7 @@ set (CMAKE_POSITION_INDEPENDENT_CODE TRUE)
 include_directories (source)
 
 # Bring in the source files
-file (GLOB_RECURSE SOURCES "./*.cpp")
+file (GLOB_RECURSE SOURCES "./source/*.cpp")
 
 # Building shared library to AdafruitMotor.so
 add_library(AdafruitMotor SHARED ${SOURCES} source/adafruitsteppermotor.h source/adafruitsteppermotor.cpp)
