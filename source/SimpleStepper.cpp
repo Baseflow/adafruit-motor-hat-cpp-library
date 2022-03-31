@@ -43,7 +43,7 @@ void SimpleStepper::step(int steps_to_move)
     {
         unsigned long now = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
         // move only if the appropriate delay has passed:
-        if (now - last_step_time >= step_delay)
+        //if (now - last_step_time >= step_delay)
         {
             // get the timeStamp of when you stepped:
             last_step_time = now;
