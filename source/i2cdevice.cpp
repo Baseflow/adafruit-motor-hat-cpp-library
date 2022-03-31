@@ -52,6 +52,7 @@ I2CDevice::I2CDevice (int i2cAddress)
     , handle (-1)
 {
     openHandle();
+    selectDevice();
 }
 I2CDevice::~I2CDevice()
 {
@@ -67,7 +68,6 @@ void I2CDevice::write8 (int deviceRegister, int data)
 {
     if (isValid())
     {
-        selectDevice();
         writeByteData (deviceRegister, data);
     }
 }
@@ -76,7 +76,6 @@ int I2CDevice::read8 (int deviceRegister)
 {
     if (isValid())
     {
-        selectDevice();
         return readByteData (deviceRegister);
     }
     return -1;

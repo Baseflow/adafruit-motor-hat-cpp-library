@@ -47,9 +47,9 @@ private:
     void openHandle();
     void closeHandle();
 
-    void selectDevice();
     void writeByteData (int deviceRegister, int data);
     int readByteData (int deviceRegister);
+    void selectDevice();
 
     const int busNumber;
     const int address;
